@@ -1,0 +1,196 @@
+{
+  "course": {
+    "code": "CE452",
+    "title": "Geographic Information Systems Laboratory",
+    "short": "GIS Laboratory",
+    "department": "Department of Civil Engineering",
+    "institution": "Christ University, Bengaluru",
+    "term": "2026-27",
+    "credits": "2 (L: 0, T: 0, P: 2)",
+    "contact_hours": "30 Practical Hours",
+    "instructor": "Dr Arpan Pradhan",
+    "email": "arpan.pradhan@christuniversity.in",
+    "repo": "https://github.com/PradhanArpan/gis",
+    "site": "https://pradhanarpan.github.io/gis/",
+    "co": [
+      { "id": "CO1", "text": "Georeference scanned topographical mapsheets and spatial rasters to standard geodetic datums and projected coordinate systems.", "rbt": "L3" },
+      { "id": "CO2", "text": "Digitize, edit, and maintain topological integrity of spatial vector datasets in QGIS and GeoPackage formats.", "rbt": "L3" },
+      { "id": "CO3", "text": "Perform vector and raster spatial geoprocessing, attribute querying, and multi-criteria decision overlay analysis (AHP).", "rbt": "L4" },
+      { "id": "CO4", "text": "Process digital elevation models (DEM) for hydrological catchment delineation, stream network extraction, and terrain morphometry.", "rbt": "L4, L5" },
+      { "id": "CO5", "text": "Ingest, pre-process, and classify multispectral satellite imagery (Sentinel-2 / Landsat) and extract spectral indices (NDVI, NDWI, NDBI).", "rbt": "L4, L5" }
+    ]
+  },
+  "labs": [
+    {
+      "id": "L01",
+      "week": 1,
+      "title": "Georeferencing Survey of India Toposheets in QGIS",
+      "co": ["CO1"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "G45E7_78A7.pdf (Survey of India 1:50,000 Open Series Map)",
+      "time": "120 min",
+      "file": "labs/L01.md",
+      "enabled": true
+    },
+    {
+      "id": "L02",
+      "week": 2,
+      "title": "QGIS Environment Setup & Web Basemap Integration",
+      "co": ["CO1", "CO2"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "XYZ Tiles, QuickMapServices, OpenStreetMap",
+      "time": "120 min",
+      "file": "labs/L02.md",
+      "enabled": true
+    },
+    {
+      "id": "L03",
+      "week": 3,
+      "title": "Vector Data Creation, On-Screen Digitization & Snapping Rules",
+      "co": ["CO2"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "Georeferenced toposheet, GeoPackage (.gpkg)",
+      "time": "120 min",
+      "file": "labs/L03.md",
+      "enabled": true
+    },
+    {
+      "id": "L04",
+      "week": 4,
+      "title": "Attribute Table Operations, Field Calculator & Spatial Expressions",
+      "co": ["CO2", "CO3"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "Infrastructure vector layers",
+      "time": "120 min",
+      "file": "labs/L04.md",
+      "enabled": true
+    },
+    {
+      "id": "L05",
+      "week": 5,
+      "title": "Coordinate Reference Systems (CRS) & Projection Transformation",
+      "co": ["CO1"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "EPSG:4326 to EPSG:32643 / EPSG:32645",
+      "time": "120 min",
+      "file": "labs/L05.md",
+      "enabled": true
+    },
+    {
+      "id": "L06",
+      "week": 6,
+      "title": "Vector Spatial Analysis: Buffer, Overlay & Geoprocessing",
+      "co": ["CO3"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "River corridors, road networks, land parcels",
+      "time": "120 min",
+      "file": "labs/L06.md",
+      "enabled": true
+    },
+    {
+      "id": "L07",
+      "week": 7,
+      "title": "Thematic Cartography, Symbology & Print Layout Design",
+      "co": ["CO2", "CO3"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "District administrative boundary & census data",
+      "time": "120 min",
+      "file": "labs/L07.md",
+      "enabled": true
+    },
+    {
+      "id": "L08",
+      "week": 8,
+      "title": "Digital Elevation Model (DEM) Analysis: Slope, Aspect & Contours",
+      "co": ["CO4"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "CartoDEM 30m / SRTM 1 arc-second",
+      "time": "120 min",
+      "file": "labs/L08.md",
+      "enabled": true
+    },
+    {
+      "id": "L09",
+      "week": 9,
+      "title": "Hydrological Watershed & Drainage Network Delineation",
+      "co": ["CO4"],
+      "software": "QGIS 3.x / 4.x, SAGA / GRASS",
+      "dataset": "Hydro-conditioned DEM raster",
+      "time": "120 min",
+      "file": "labs/L09.md",
+      "enabled": true
+    },
+    {
+      "id": "L10",
+      "week": 10,
+      "title": "Multispectral Satellite Data Pre-processing & Band Compositing",
+      "co": ["CO5"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "Copernicus Sentinel-2 L2A (10m bands)",
+      "time": "120 min",
+      "file": "labs/L10.md",
+      "enabled": true
+    },
+    {
+      "id": "L11",
+      "week": 11,
+      "title": "Spectral Indices Computation: NDVI, NDWI & NDBI",
+      "co": ["CO5"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "Multispectral satellite raster stack",
+      "time": "120 min",
+      "file": "labs/L11.md",
+      "enabled": true
+    },
+    {
+      "id": "L12",
+      "week": 12,
+      "title": "Supervised & Unsupervised Satellite Image Classification",
+      "co": ["CO5"],
+      "software": "QGIS 3.x / 4.x, SCP Plugin",
+      "dataset": "Sentinel-2 image + training ROI polygons",
+      "time": "120 min",
+      "file": "labs/L12.md",
+      "enabled": true
+    },
+    {
+      "id": "L13",
+      "week": 13,
+      "title": "Spatial Interpolation: IDW, Spline & Ordinary Kriging",
+      "co": ["CO3"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "Rain gauge / groundwater monitoring stations",
+      "time": "120 min",
+      "file": "labs/L13.md",
+      "enabled": true
+    },
+    {
+      "id": "L14",
+      "week": 14,
+      "title": "Multi-Criteria Decision Analysis (AHP-GIS) for Site Suitability",
+      "co": ["CO3", "CO4"],
+      "software": "QGIS 3.x / 4.x",
+      "dataset": "Slope, land use, water buffer, road distance rasters",
+      "time": "120 min",
+      "file": "labs/L14.md",
+      "enabled": true
+    },
+    {
+      "id": "L15",
+      "week": 15,
+      "title": "Web GIS, OpenStreetMap Extraction & Capstone GeoPackage Packaging",
+      "co": ["CO2", "CO3", "CO5"],
+      "software": "QGIS 3.x / 4.x, QuickOSM",
+      "dataset": "OpenStreetMap vector features & OGC GeoPackage",
+      "time": "120 min",
+      "file": "labs/L15.md",
+      "enabled": true
+    }
+  ],
+  "pages": [
+    { "id": "setup", "title": "Software & Geospatial Data Setup", "file": "pages/setup.md" },
+    { "id": "pbl", "title": "Capstone GIS Project Guide", "file": "pages/pbl.md" },
+    { "id": "assessment", "title": "Assessment & Rubrics", "file": "pages/assessment.md" },
+    { "id": "references", "title": "References & Literature Vault", "file": "pages/references.md" }
+  ]
+}
