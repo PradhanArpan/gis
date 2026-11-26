@@ -113,7 +113,6 @@ a:hover { color: var(--river-hover); }
 .fb-iconbtn:hover { background: var(--surface-sunken); }
 
 /* ---------- 5. Shell: header, drawer ---------- */
-.fb-shell { min-height: 100vh; display: flex; flex-direction: column; }
 .fb-shell > .main { flex: 1; overflow: visible; background: var(--paper); }
 .fb-header { position: sticky; top: 0; z-index: 60; height: var(--header-height); display: flex; align-items: center; gap: var(--space-3); padding: 0 var(--space-5); background: var(--paper); border-bottom: 1px solid var(--rule); }
 .fb-header__menu { display: inline-flex; align-items: center; gap: var(--space-2); min-height: var(--control-height); padding: 0 var(--space-3); border: 1px solid var(--rule); border-radius: var(--radius-md); background: var(--surface); color: var(--ink); font: 500 15px var(--font-sans); cursor: pointer; }
@@ -521,7 +520,8 @@ body {
 
 /* Master Layout Shell */
 .fb-shell {
-  display: flex;
+  display: flex !important;
+  flex-direction: row !important;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
