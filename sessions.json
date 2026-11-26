@@ -8,8 +8,10 @@
     "term": "2026-27",
     "credits": "2 (L: 0, T: 0, P: 2)",
     "contact_hours": "30 Practical Hours",
-    "instructor": "Dr Arpan Pradhan",
-    "email": "arpan.pradhan@christuniversity.in",
+    "instructor": "Dr Sirisha Uppaluri",
+    "co_instructor": "Dr Arpan Pradhan",
+    "email": "sirisha.uppaluri@christuniversity.in",
+    "co_email": "arpan.pradhan@christuniversity.in",
     "repo": "https://github.com/PradhanArpan/gis",
     "site": "https://pradhanarpan.github.io/gis/",
     "co": [

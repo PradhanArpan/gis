@@ -31,10 +31,10 @@ def verify_all():
     course = data.get('course', {})
     if course.get('code') != "CE452":
         errors.append(f"Incorrect course code: {course.get('code')}")
-    if course.get('instructor') != "Dr Arpan Pradhan":
+    if course.get('instructor') != "Dr Sirisha Uppaluri":
         errors.append(f"Instructor altered: {course.get('instructor')}")
-    if course.get('email') != "arpan.pradhan@christuniversity.in":
-        errors.append(f"Email altered: {course.get('email')}")
+    if course.get('co_instructor') != "Dr Arpan Pradhan":
+        errors.append(f"Co-Instructor altered: {course.get('co_instructor')}")
 
     labs = data.get('labs', [])
     if len(labs) != 15:

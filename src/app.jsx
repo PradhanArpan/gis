@@ -1,11 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useLayoutEffect, useRef, useMemo } from "react";
 import { createRoot } from "react-dom/client";
-import { renderMd, enhance } from "./md.js";
+import { createPortal } from "react-dom";
+import { renderMd, enhance, esc } from "./md.js";
 import { WIDGETS } from "./widgets.jsx";
 import { 
   Compass, Map as MapIcon, Layers, BookOpen, CheckCircle2, Circle, 
   Search, Moon, Sun, Laptop, Menu, X, ExternalLink, Download, FileText, ChevronRight 
 } from "lucide-react";
+
+function resolveAssetPath(relPath) {
+  if (!relPath) return "";
+  if (/^https?:\/\//.test(relPath)) return relPath;
+  const base = window.location.pathname.endsWith("/") ? window.location.pathname : window.location.pathname + "/";
+  return base + relPath.replace(/^\/+/, "");
+}
 
 function useTheme() {
   const [theme, setTheme] = useState(() => {
@@ -47,6 +55,48 @@ function useRoute() {
   return route;
 }
 
+function Content({ md }) {
+  const ref = useRef(null);
+  const [mounts, setMounts] = useState([]);
+
+  const html = useMemo(() => {
+    if (!md) return "";
+    try {
+      return renderMd(md);
+    } catch (e) {
+      console.error("renderMd error:", e);
+      return `<div class="callout warn"><span class="ct">Rendering Notice</span>Could not render content: ${esc(e.message)}</div><pre>${esc(md)}</pre>`;
+    }
+  }, [md]);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    try {
+      ref.current.innerHTML = html;
+      enhance(ref.current);
+
+      const list = [];
+      ref.current.querySelectorAll(".wg-mount").forEach(el => {
+        const name = el.dataset.w;
+        list.push({ el, name });
+      });
+      setMounts(list);
+    } catch (e) {
+      console.warn("enhance error:", e);
+    }
+  }, [html]);
+
+  return (
+    <>
+      <article className="fb-article markdown-body" ref={ref} />
+      {mounts.map((m, i) => {
+        const W = WIDGETS[m.name];
+        return m.el ? createPortal(W ? <W /> : null, m.el, i) : null;
+      })}
+    </>
+  );
+}
+
 export function App() {
   const [courseData, setCourseData] = useState(null);
   const [content, setContent] = useState("");
@@ -63,17 +113,26 @@ export function App() {
     }
   });
 
-  const contentRef = useRef(null);
   const route = useRoute();
 
   // Load sessions.json
   useEffect(() => {
-    fetch("sessions.json")
-      .then(res => res.json())
+    fetch(resolveAssetPath("sessions.json"))
+      .then(res => {
+        if (!res.ok) throw new Error("Failed to load sessions.json: " + res.status);
+        return res.json();
+      })
       .then(data => {
         setCourseData(data);
       })
-      .catch(err => console.error("Error loading sessions.json:", err));
+      .catch(err => {
+        console.error("Error loading sessions.json:", err);
+        // Fallback directly to fetch relative if basePath failed
+        fetch("sessions.json")
+          .then(res => res.json())
+          .then(data => setCourseData(data))
+          .catch(e => console.error("Fallback sessions.json also failed:", e));
+      });
   }, []);
 
   // Load Markdown file based on route
@@ -94,9 +153,17 @@ export function App() {
       filePath = "labs/L01.md";
     }
 
-    fetch(filePath)
+    const targetUrl = resolveAssetPath(filePath);
+
+    fetch(targetUrl)
       .then(res => {
-        if (!res.ok) throw new Error("File not found");
+        if (!res.ok) {
+          // Fallback to relative fetch
+          return fetch(filePath).then(r2 => {
+            if (!r2.ok) throw new Error("File not found: " + filePath);
+            return r2.text();
+          });
+        }
         return res.text();
       })
       .then(text => {
@@ -104,26 +171,10 @@ export function App() {
         setLoading(false);
       })
       .catch(err => {
-        setContent(`# Content Not Available\n\nCould not load \`${filePath}\`.`);
+        setContent(`# Content Notice\n\nCould not load \`${filePath}\` (${err.message}).\n\nPlease check network or URL routing.`);
         setLoading(false);
       });
   }, [route, courseData]);
-
-  // Mount KaTeX, Code, and Widgets
-  useEffect(() => {
-    if (!contentRef.current || loading) return;
-    enhance(contentRef.current);
-
-    // Mount interactive widgets
-    contentRef.current.querySelectorAll(".wg-mount").forEach(el => {
-      const widgetName = el.dataset.w;
-      const WidgetComponent = WIDGETS[widgetName];
-      if (WidgetComponent) {
-        const root = createRoot(el);
-        root.render(<WidgetComponent />);
-      }
-    });
-  }, [content, loading]);
 
   const toggleLabCompletion = (labId) => {
     setCompletedLabs(prev => {
@@ -230,8 +281,15 @@ export function App() {
 
         <div className="fb-sidebar__footer">
           <div className="fb-instructor-info">
-            <div className="name">Dr Arpan Pradhan</div>
-            <div className="dept">Civil Engineering, Christ University</div>
+            <div className="role-line">
+              <span className="role-label">Instructor:</span>
+              <span className="person-name">{courseData?.course?.instructor || "Dr Sirisha Uppaluri"}</span>
+            </div>
+            <div className="role-line">
+              <span className="role-label">Co-Instructor:</span>
+              <span className="person-name">{courseData?.course?.co_instructor || "Dr Arpan Pradhan"}</span>
+            </div>
+            <div className="dept">{courseData?.course?.department || "Civil Engineering, Christ University"}</div>
           </div>
           <div className="fb-footer-actions">
             <button onClick={toggleTheme} className="fb-theme-toggle" title="Toggle theme">
@@ -253,11 +311,7 @@ export function App() {
           </div>
         ) : (
           <div className="fb-content-wrapper">
-            <article 
-              className="fb-article markdown-body" 
-              ref={contentRef}
-              dangerouslySetInnerHTML={{ __html: renderMd(content) }}
-            />
+            <Content md={content} />
           </div>
         )}
       </main>

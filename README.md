@@ -3,7 +3,7 @@
 [![Course](https://img.shields.io/badge/Course-CE452_GIS_Laboratory-gold.svg)](https://pradhanarpan.github.io/gis/)
 [![Credits](https://img.shields.io/badge/Credits-0--0--2_(2)-green.svg)](https://pradhanarpan.github.io/gis/)
 
-Official course delivery portal and computational repository for **CE452: Geographic Information Systems Laboratory**, offered in the Civil Engineering curriculum at the School of Engineering and Technology, Christ University, Bengaluru. Instructor: **Dr Arpan Pradhan**.
+Official course delivery portal and computational repository for **CE452: Geographic Information Systems Laboratory**, offered in the Civil Engineering curriculum at the School of Engineering and Technology, Christ University, Bengaluru. Instructor: **Dr Sirisha Uppaluri**, Co-Instructor: **Dr Arpan Pradhan**.
 
 ---
 

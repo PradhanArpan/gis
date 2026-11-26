@@ -771,15 +771,28 @@ body {
   justify-content: space-between;
 }
 
-.fb-instructor-info .name {
-  font-size: 0.82rem;
-  font-weight: 600;
+.fb-instructor-info .role-line {
+  font-size: 0.8rem;
+  line-height: 1.35;
   color: var(--ink);
+}
+
+.fb-instructor-info .role-label {
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--river);
+  margin-right: 4px;
+}
+
+.fb-instructor-info .person-name {
+  font-weight: 600;
 }
 
 .fb-instructor-info .dept {
   font-size: 0.72rem;
   color: var(--text-muted);
+  margin-top: 3px;
 }
 
 .fb-footer-actions {
